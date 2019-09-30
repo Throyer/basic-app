@@ -18,6 +18,7 @@ package com.github.throyer.Base.security.service;
 
 import com.github.throyer.Base.domain.repositories.UsuarioRepository;
 import com.github.throyer.Base.security.model.Autenticado;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

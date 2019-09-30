@@ -16,8 +16,10 @@
  */
 package com.github.throyer.Base.security.model;
 
-import com.github.throyer.Base.domain.models.Usuario;
 import java.util.Collection;
+
+import com.github.throyer.Base.domain.models.Usuario;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
@@ -26,6 +28,8 @@ import org.springframework.security.core.userdetails.User;
  * @author Renato Henrique
  */
 public class Autenticado extends User {
+    
+    private static final long serialVersionUID = 1L;
     
     private String apelido;
     

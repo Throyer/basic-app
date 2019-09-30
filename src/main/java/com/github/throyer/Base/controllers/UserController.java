@@ -17,6 +17,7 @@
 package com.github.throyer.Base.controllers;
 
 import static com.github.throyer.Base.util.Templates.*;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;

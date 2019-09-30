@@ -16,8 +16,10 @@
  */
 package com.github.throyer.Base.domain.repositories;
 
-import com.github.throyer.Base.domain.models.Usuario;
 import java.util.Optional;
+
+import com.github.throyer.Base.domain.models.Usuario;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
