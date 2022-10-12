@@ -1,0 +1,77 @@
+<nav 
+  class="navbar navbar-expand-md navbar-light fixed-top bg-light" 
+  th:fragment="navbar">
+  <a class="navbar-brand" th:href="@{/}">
+      <i class="fas fa-desktop"></i>
+      Base Application
+  </a>
+    
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbar"
+    aria-expanded="false"
+    aria-label="Altenar navbar">
+      <span class="navbar-toggler-icon"></span>
+  </button>
+    
+  <div
+    class="collapse navbar-collapse"
+    id="navbar">
+    
+    <ul class="navbar-nav mr-auto">            
+      <a
+        class="nav-item nav-link"
+        th:classappend="${home}"
+        th:href="@{/}">
+        <i class="fas fa-home"></i>
+        Home <span th:if="${home}" class="sr-only">(current)</span>
+      </a>        
+    </ul>
+
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a
+          class="nav-item nav-link"
+          th:classappend="${contatc}"
+          th:href="@{/contatc}">
+          <i class="fas fa-envelope"></i>
+          Contato <span th:if="${contatc}" class="sr-only">(current)</span>
+        </a>
+      </li>
+      <li 
+        sec:authorize="isAuthenticated()"
+        class="nav-item dropdown"
+        th:classappend="${user}"
+        th:object="${#authentication.principal}">
+        <button
+          class="nav-link dropdown-toggle btn btn-link"
+          id="navbarDropdown"
+          type="button"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+          v-pre>
+            <i class="fas fa-user-circle"></i>
+            <span th:text="*{name}"></span>
+            <span class="caret"></span>
+        </button>
+        <div
+          class="dropdown-menu dropdown-menu-right"
+          aria-labelledby="navbarDropdown">
+          <a class="dropdown-item"
+            th:href="@{/user}">
+            <i class="fas fa-user-cog"></i>
+            Conta
+          </a>
+          <div class="d-none d-sm-block dropdown-divider"></div>
+          <a class="dropdown-item" th:href="@{/logout}">
+            <i class="fas fa-sign-out-alt"></i>
+            sair
+          </a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>

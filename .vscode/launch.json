@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Debug (Attach Docker)",
+      "projectName": "Basic app",
+      "request": "attach",
+      "hostName": "127.0.0.1",
+      "port": 9000
+    },
+  ]
+}

@@ -1,0 +1,68 @@
+version: '3'
+services:
+
+  mariadb:
+    image: mariadb:10.6.10
+    restart: unless-stopped
+    container_name: ${COMPOSE_PROJECT_NAME}-database
+    ports:
+      - "${DB_PORT}:3306"
+    environment:
+      TZ: ${TIMEZONE}
+      MARIADB_USER: ${DB_USERNAME}
+      MARIADB_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+    volumes:
+      - ~/.volumes/database/mariadb:/var/lib/mysql
+    networks:
+      - basic-app
+    tty: true
+
+  app:
+    build:
+      context: ../app
+      dockerfile: ../app/docker/Dockerfile.prod
+    image: throyer/springboot/basic-app:latest
+    platform: linux/x86_64
+    container_name: ${COMPOSE_PROJECT_NAME}-app
+    links:
+      - database
+    ports:
+      - "${SERVER_PORT}:${SERVER_PORT}"
+      - "${SERVER_DEBUG_PORT}:${SERVER_DEBUG_PORT}"
+    environment:
+
+      # database
+      DB_PORT: ${DB_PORT}
+      DB_NAME: ${DB_NAME}
+      DB_HOST: ${DB_HOST}
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_SHOW_SQL: ${DB_SHOW_SQL}
+      DB_MAX_CONNECTIONS: ${DB_MAX_CONNECTIONS}
+
+      # security
+      HASHIDS_SECRET: ${HASHIDS_SECRET}
+      COOKIE_SECRET: ${COOKIE_SECRET}
+
+    volumes:
+      - ../app:/app
+      - ~/.m2:/root/.m2
+    working_dir: /app
+    networks:
+      - basic-app
+    tty: true
+    entrypoint: [
+      "dockerize",
+      "-wait",
+      "tcp://database:${DB_PORT}",
+      "-timeout",
+      "20s",
+      "java",
+      "-jar",
+      "app.jar"
+    ]
+
+networks:
+  basic-app:
+    driver: bridge
