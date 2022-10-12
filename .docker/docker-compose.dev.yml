@@ -1,7 +1,7 @@
 version: '3'
 services:
 
-  mariadb:
+  database:
     image: mariadb:10.6.10
     restart: unless-stopped
     container_name: ${COMPOSE_PROJECT_NAME}-database
@@ -12,6 +12,7 @@ services:
       MARIADB_USER: ${DB_USERNAME}
       MARIADB_PASSWORD: ${DB_PASSWORD}
       MYSQL_DATABASE: ${DB_NAME}
+      MARIADB_RANDOM_ROOT_PASSWORD: true
     volumes:
       - ~/.volumes/database/mariadb:/var/lib/mysql
     networks:
@@ -60,7 +61,7 @@ services:
       "20s",
       'mvn',
       'spring-boot:run',
-      '-Dspring-boot.run.jvmArguments="-agentlib:jdwp=transport=dt_socket,server=y,address=*:${API_DEBUG_PORT},suspend=n"'
+      '-Dspring-boot.run.jvmArguments="-agentlib:jdwp=transport=dt_socket,server=y,address=*:${SERVER_DEBUG_PORT},suspend=n"'
     ]
 
 networks:
