@@ -20,8 +20,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.PrePersist;
+import javax.persistence.Table;
 
-import com.github.throyer.app.domain.models.Role;
+import com.github.throyer.app.modules.roles.entitites.Role;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -29,7 +30,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@Entity
+@Table(name = "user")
+@Entity(name = "users")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class User implements Serializable {
   @Id

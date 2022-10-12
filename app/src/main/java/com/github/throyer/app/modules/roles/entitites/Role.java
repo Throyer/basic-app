@@ -1,4 +1,4 @@
-package com.github.throyer.app.domain.models;
+package com.github.throyer.app.modules.roles.entitites;
 
 import static java.util.Optional.ofNullable;
 import static javax.persistence.GenerationType.IDENTITY;
@@ -17,8 +17,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@Entity(name = "role")
 @Table(name = "role")
+@Entity(name = "roles")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Role implements GrantedAuthority {
   @Id

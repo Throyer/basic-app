@@ -11,6 +11,7 @@ import static com.github.throyer.app.modules.infra.environments.SecurityEnvironm
 import static com.github.throyer.app.modules.infra.environments.SecurityEnvironments.SESSION_COOKIE_EXPIRATION_TIME_IN_SECONDS;
 import static com.github.throyer.app.modules.infra.environments.SecurityEnvironments.SESSION_COOKIE_NAME;
 import static com.github.throyer.app.modules.infra.environments.SecurityEnvironments.SESSION_COOKIE_SECRET;
+import static org.springframework.http.HttpMethod.GET;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -44,7 +45,7 @@ public class SecurityConfiguration {
   protected SecurityFilterChain configure(HttpSecurity http) throws Exception {
     http.
       authorizeRequests()
-        .antMatchers(LOGIN_URL)
+        .antMatchers(GET, LOGIN_URL, "/webjars/**", "/css/**", "/js/**")
           .permitAll()        
         .anyRequest()
           .authenticated()
@@ -61,8 +62,10 @@ public class SecurityConfiguration {
 
       .and()        
         .rememberMe()
-          .key(SESSION_COOKIE_SECRET)
-            .tokenValiditySeconds(SESSION_COOKIE_EXPIRATION_TIME_IN_SECONDS)
+          .rememberMeParameter("remember-me")
+          .rememberMeCookieName("REMEMBER_ME")
+            .key(SESSION_COOKIE_SECRET)
+              .tokenValiditySeconds(SESSION_COOKIE_EXPIRATION_TIME_IN_SECONDS)
 
       .and()
         .logout()

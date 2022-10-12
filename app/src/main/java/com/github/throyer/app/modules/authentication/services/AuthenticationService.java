@@ -18,7 +18,7 @@ public class AuthenticationService implements UserDetailsService {
   
   @Override
   public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-    var user = repository.findOptionalByEmail(email)
+    var user = repository.findByEmailFetchRoles(email)
       .orElseThrow(() -> new UsernameNotFoundException("Senha ou usuário invalido."));
     return new Authorized(user);
   }

@@ -24,9 +24,9 @@ INSERT INTO user_role
 VALUES
   (
     (SELECT id FROM user WHERE email = @email),
-    (SELECT id FROM role WHERE initials = @adm)
+    (SELECT id FROM role WHERE name = @adm)
   ),
   (
     (SELECT id FROM user WHERE email = @email),
-    (SELECT id FROM role WHERE initials = @user)
+    (SELECT id FROM role WHERE name = @user)
   );
